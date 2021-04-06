@@ -2,13 +2,24 @@ import {  useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [message, setMessage] = useState("Hello React");
-  useEffect(() => {setMessage("Hallo neue Fische")} )
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleWindowResizing() {
+    setWindowWidth(window.innerWidth); 
+  }
+  window.addEventListener("resize", handleWindowResizing); 
+
+  return () => {
+    window.removeEventListener("resize", handleWindowResizing); 
+  };
+}, []); 
+  
   
 
   return (
     <div className="App">
-      <h1>{message}</h1>
+      <p> Window Width:{windowWidth}</p>
     </div>
   );
 }
